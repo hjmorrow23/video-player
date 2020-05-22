@@ -1,0 +1,22 @@
+//font sizes
+$font-size-standard: 16px;
+$font-size-header: 24px;
+$font-size-small: 12px;
+
+//breakpoints
+$laptop: 1280px;
+$tablet-l: 1024px;
+$tablet-p: 790px; //traditionally 768px
+$mobile: 640px;
+
+//functions
+@function pxToRem($size) {
+    $remSize: $size / 16px;
+    @return #{$remSize}rem;
+}
+
+//mixins
+@mixin fontSize($size) {
+    font-size: $size; //Fallback in px
+    font-size: pxToRem($size);
+}

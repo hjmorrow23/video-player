@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Brandon";
+    src: url('~@/assets/fonts/BRANDON_REG.otf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Brandon-Bold";
+    src: url('~@/assets/fonts/BRANDON_BLD.otf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Brandon-Black";
+    src: url('~@/assets/fonts/BRANDON_BLK.otf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Brandon-Light";
+    src: url('~@/assets/fonts/BRANDON_LIGHT.otf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Brandon-Medium";
+    src: url('~@/assets/fonts/BRANDON_MED.otf');
+    font-style: normal;
+}
+
+$font: "Brandon", Helvetica, sans-serif;
+$font-bold: "Brandon-Bold", Helvetica, sans-serif;
+$font-med: "Brandon-Medium", Helvetica, sans-serif;
+$font-black: "Brandon-Black", Helvetica, sans-serif;
+$font-light: "Brandon-Light", Helvetica, sans-serif;
