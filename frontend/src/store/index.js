@@ -62,6 +62,13 @@ export default new Vuex.Store({
         throw new Error(`API ${error}`);
       });
     },
+    incrementVideoField({commit}, id, field) {
+      Vue.axios.put(`videos/${id}/${field}`).then(result => {
+          commit('SAVE_VIDEO', result.data);
+      }).catch(error => {
+          throw new Error(`API ${error}`);
+      });
+    },
     // getComments({commit}) {
     //   Vue.axios.get('comments').then(result => {
     //     commit('SAVE_COMMENTS', result.data);
@@ -78,7 +85,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    user: state => state.user
+    user: state => state.user,
+    currentVideo: state => state.currentVideo
   },
   modules: {
   }

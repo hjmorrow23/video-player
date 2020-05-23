@@ -8,6 +8,7 @@ const attributes = [
     'video_url',
     'title',
     'likes',
+    'dislikes',
     'views',
     'thumb_url'
 ];
@@ -49,8 +50,35 @@ router.get('/:id', async (req, res) => {
 //     return res.send(user);
 // });
    
-// router.put('/:id', (req, res) => {
-//     return res.send('Received a PUT HTTP method');
+router.put('/:id/:field', async (req, res) => {
+    try {
+        const video = await req.context.models.Video.increment(req.params.field, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send(video);
+    } catch(err) {
+        console.log(err);
+    }
+    
+});
+
+// router.put('/:id/:field/:value', async (req, res) => {
+//     console.log(req.params.field, req.params.value)
+//     try {
+//         const video = await req.context.models.Video.update({
+//                 [req.params.field]: req.params.value
+//             }, {
+//             where: {
+//                 id: req.params.id
+//             }
+//         });
+//         res.send(video);
+//     } catch(err) {
+//         console.log(err)
+//     }
+    
 // });
    
 router.delete('/:id', async (req, res) => {
