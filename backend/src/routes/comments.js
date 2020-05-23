@@ -6,7 +6,8 @@ const attributes = [
     'id',
     'video_id',
     'user_id',
-    'comment'
+    'comment',
+    'comment_date'
 ];
 
 router.get('/', async (req, res) => {
@@ -42,7 +43,10 @@ router.get('/:videoId', async (req, res) => {
                 attributes,
                 where: {
                     video_id: id
-                }
+                },
+                order: [
+                    ['comment_date', 'DESC'],
+                ],
             }
         );
         return res.send(comments);
@@ -55,7 +59,8 @@ router.post('/', async (req, res) => {
     const video = await req.context.models.Comment.create({
         video_id: req.body.video_id,
         user_id: req.body.user_id,
-        comment: req.body.comment
+        comment: req.body.comment,
+        comment_date: req.body.comment_date
     }, {
         fields: attributes,
     });

@@ -4,7 +4,7 @@
         <div class="comment-data">
             <div class="comment-data-heading">
                 <h4 class="commenter-name">{{user.username}}</h4>
-                <span class="comment-time">9 minutes ago</span>
+                <span class="comment-time">{{`${dateDiff.diff} ${dateDiff.timeFrame} ago`}}</span>
             </div>
             <p v-if="comment" class="comment-text">{{comment.comment}}</p>
         </div>
@@ -15,6 +15,7 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import moment from 'moment'
 
     Vue.use(VueAxios, axios);
 
@@ -24,7 +25,8 @@
         data() {
             return {
                 userComment: this.comment,
-                user: {}
+                user: {},
+                dateDiff: this.calculateCommentDateDiff()
             }
         },
         mounted() {
@@ -34,6 +36,31 @@
                 throw new Error(`API ${error}`);
             });
         },
+        methods: {
+            calculateCommentDateDiff() {
+                let diff = (moment() - moment(this.comment.comment_date)) / (1000*60*60*24);
+                let timeFrame = diff >= 2 ? 'days' : 'day';
+                if(diff > 28) {
+                    diff = Math.floor((moment() - moment(this.comment.comment_date)) / (1000*60*60*24*30));
+                    timeFrame = diff >= 2 ? 'months' : 'month';
+                } else if(diff <= 28 && diff > 7) {
+                    diff = Math.floor((moment() - moment(this.comment.comment_date)) / (1000*60*60*24*7));
+                    timeFrame = diff >= 2 ? 'weeks' : 'week';
+                } else if(diff <= 7 && diff > 1) {
+                    diff = Math.floor(diff);
+                } else if(diff <= 1 && diff > .04) {
+                    diff = Math.floor((moment() - moment(this.comment.comment_date)) / (1000*60*60));
+                    timeFrame = diff >= 2 ? 'hours' : 'hour';
+                } else if (diff <= .04) {
+                    diff = Math.floor((moment() - moment(this.comment.comment_date)) / (1000*60));
+                    timeFrame = diff >= 2 ? 'minutes' : 'minute';
+                } 
+                return {
+                    diff,
+                    timeFrame
+                }
+            }
+        }
     }
 </script>
 

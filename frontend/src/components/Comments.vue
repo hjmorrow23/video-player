@@ -16,6 +16,7 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import moment from 'moment'
 
     Vue.use(VueAxios, axios);
 
@@ -43,7 +44,8 @@
                 const comment = {
                     user_id: user.id,
                     video_id: this.currentVideo.id,
-                    comment: this.commentText
+                    comment: this.commentText,
+                    comment_date: moment()
                 };
                 Vue.axios.post('comments', comment).then(result => {
                     console.log(result)
