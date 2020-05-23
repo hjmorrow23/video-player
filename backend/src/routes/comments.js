@@ -20,15 +20,32 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+// router.get('/:id', async (req, res) => {
+//     try {
+//         const comment = await req.context.models.Comment.findByPk(
+//             req.params.id,
+//             {
+//                 attributes
+//             }
+//         );
+//         return res.send(comment);
+//     } catch(err) {
+//         console.log(err);
+//     }
+// });
+
+router.get('/:videoId', async (req, res) => {
     try {
-        const comment = await req.context.models.Comment.findByPk(
-            req.params.id,
+        const id = req.params.videoId
+        const comments = await req.context.models.Comment.findAll(
             {
-                attributes
+                attributes,
+                where: {
+                    video_id: id
+                }
             }
         );
-        return res.send(comment);
+        return res.send(comments);
     } catch(err) {
         console.log(err);
     }

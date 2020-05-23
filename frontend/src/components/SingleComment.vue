@@ -3,24 +3,45 @@
         <img class="comment-user-profile-image" src="@/assets/images/png/placeholder_avatar.png" alt="User Profile Image" />
         <div class="comment-data">
             <div class="comment-data-heading">
-                <h4 class="commenter-name">Rick Sanchez</h4>
+                <h4 class="commenter-name">{{user.username}}</h4>
                 <span class="comment-time">9 minutes ago</span>
             </div>
-            <p class="comment-text">You take the good, you take the bad, you take em both and there you have the facts of life. The facts of life.</p>
+            <p v-if="comment" class="comment-text">{{comment.comment}}</p>
         </div>
     </li>
 </template>
 
 <script>
+    import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+
+    Vue.use(VueAxios, axios);
+
     export default {
-        name: "SingleComment"
+        name: "SingleComment",
+        props: ['comment'],
+        data() {
+            return {
+                userComment: this.comment,
+                user: {}
+            }
+        },
+        mounted() {
+            Vue.axios.get(`users/${this.userComment.user_id}`).then(result => {
+                this.user = result.data;
+            }).catch(error => {
+                throw new Error(`API ${error}`);
+            });
+        },
     }
 </script>
 
 <style lang="scss" scoped>
     .comment {
-        display: inline-flex;
+        display: flex;
         align-content: space-between;
+        margin-bottom: 3.125rem;
 
         &-user-profile-image {
             width: 6.25rem;

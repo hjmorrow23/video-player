@@ -4,7 +4,8 @@
         <div class="video-flex-container">
             <div class="video-layout-container">
                 <div class="video-container">
-                    <video class="video" src="https://static-email-hosting.s3.amazonaws.com/24G_Test_Project/videos/who_is_24g.mp4" width="100%"></video>
+                    <video class="video" v-if="currentVideo" :src="currentVideo.video_url" width="100%" controls></video>
+                    <p v-else>Loading...</p>
                 </div>
                 <div class="video-data-row">
                     <p class="views">300 views</p>
@@ -16,19 +17,24 @@
             </div>
             <Sidebar></Sidebar>
         </div>
-        <Comments></Comments>
+        <Comments :currentVideo="currentVideo"></Comments>
     </section>
 </template>
 
 <script>
     import Comments from '@/components/Comments'
     import Sidebar from '@/components/Sidebar'
+    import { mapState } from 'vuex'
 
     export default {
         name: "Player",
         components: {
             Sidebar,
             Comments
+        },
+        computed: mapState(['currentVideo']),
+        created() {
+            this.$store.dispatch('getVideo', this.$route.params.id);
         }
     }
 </script>

@@ -18,9 +18,9 @@ export default {
     Header,
     Player
   },
-  computed: mapState(['users']),
+  computed: mapState(['user']),
   created() {
-    this.$store.dispatch('getUsers');
+    this.$store.dispatch('getUser', 3);
   }
 }
 </script>

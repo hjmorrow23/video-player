@@ -1,22 +1,30 @@
 <template>
     <aside class="video-sidebar">
         <ul class="video-list">
-            <li class="video-list-item">
-                <img class="video-list-item-image" src="https://static-email-hosting.s3.amazonaws.com/24G_Test_Project/videos/who_is_24g.jpg" alt="Video Image" />
-            </li>
-            <li class="video-list-item">
-                <img class="video-list-item-image" src="https://static-email-hosting.s3.amazonaws.com/24G_Test_Project/videos/ces_overview.jpg" alt="Video Image" />
-            </li>
-            <li class="video-list-item">
-                <img class="video-list-item-image" src="https://static-email-hosting.s3.amazonaws.com/24G_Test_Project/videos/ces_overview.jpg" alt="Video Image" />
+            <li v-for="video in videos" :key="video.id" class="video-list-item">
+                <router-link :to="'/video/' + video.id">
+                    <img v-if="video.id.toString() === currentVideoId" class="video-list-item-image selected-video" :src="video.thumb_url" :alt="video.title" />
+                    <img v-else class="video-list-item-image" :src="video.thumb_url" :alt="video.title" />
+                </router-link>
             </li>
         </ul>
     </aside>
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+
     export default {
-        name: "Sidebar"
+        name: "Sidebar",
+        data() {
+            return {
+                currentVideoId: this.$route.params.id
+            }
+        },
+        computed: mapState(['videos']),
+        created() {
+            this.$store.dispatch('getVideos');
+        }
     }
 </script>
 
@@ -62,7 +70,9 @@
                     outline: 5px solid $twenty-four-g-orange;
                     outline-offset: -5px;
                 }
+
             }
+
         }
     }
 </style>

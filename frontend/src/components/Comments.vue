@@ -1,10 +1,10 @@
 <template>
     <article class="comments-widget">
         <h3 class="comments-widget-heading">Comments</h3>
-        <textarea class="comment-input" type="textarea" placeholder="Type up a sweet comment..."></textarea>
+        <textarea v-model="commentText" class="comment-input" type="textarea" placeholder="Type up a sweet comment..."></textarea>
         <Button class="comment-button" label="add comment" :callback="addComment"></Button>
-        <ul class="comment-list">
-            <SingleComment></SingleComment>
+        <ul v-if="currentVideo && comments" class="comment-list">
+            <SingleComment v-for="comment in comments" :key="comment.id" :comment="comment"></SingleComment>
         </ul>
     </article>
 </template>
@@ -12,6 +12,12 @@
 <script>
     import Button from '@/components/Button';
     import SingleComment from '@/components/SingleComment'
+    import { mapState } from 'vuex'
+    import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+
+    Vue.use(VueAxios, axios);
 
     export default {
         name: "Comments",
@@ -19,9 +25,32 @@
             Button,
             SingleComment
         },
+        data() {
+            return {
+                commentText: ''
+            }
+        },
+        props: {
+            currentVideo: Object
+        },
+        computed: mapState(['comments']),
+        created() {
+            this.$store.dispatch('getVideoComments', this.$route.params.id);
+        },
         methods: {
             addComment() {
-                console.log('clicked')
+                const user = this.$store.getters.user;
+                const comment = {
+                    user_id: user.id,
+                    video_id: this.currentVideo.id,
+                    comment: this.commentText
+                };
+                Vue.axios.post('comments', comment).then(result => {
+                    console.log(result)
+                    this.$store.dispatch('getVideoComments', this.$route.params.id);
+                }).catch(error => {
+                    throw new Error(`API ${error}`);
+                });
             },
         }
     }

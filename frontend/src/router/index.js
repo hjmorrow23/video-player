@@ -4,9 +4,13 @@ import VideoPlayer from '../views/VideoPlayer.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
+    redirect: '/video/6'
+  },
+  {
+    path: '/video/:id',
     name: 'VideoPlayer',
     component: VideoPlayer
   },

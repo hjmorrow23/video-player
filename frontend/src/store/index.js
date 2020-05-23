@@ -11,15 +11,23 @@ Vue.axios.defaults.baseURL = 'http://localhost:3000/';
 export default new Vuex.Store({
   state: {
     users: [],
+    user: {},
     videos: [],
-    comments:[]
+    comments:[],
+    currentVideo: {}
   },
   mutations: {
     SAVE_USERS(state, users) {
       state.users = users;
     },
+    SAVE_USER(state, user) {
+      state.user = user;
+    },
     SAVE_VIDEOS(state, videos) {
       state.videos = videos;
+    },
+    SAVE_VIDEO(state, video) {
+      state.currentVideo = video;
     },
     SAVE_COMMENTS(state, comments) {
       state.comments = comments;
@@ -33,6 +41,13 @@ export default new Vuex.Store({
         throw new Error(`API ${error}`);
       });
     },
+    getUser({commit}, id) {
+      Vue.axios.get(`users/${id}`).then(result => {
+        commit('SAVE_USER', result.data);
+      }).catch(error => {
+        throw new Error(`API ${error}`);
+      });
+    },
     getVideos({commit}) {
       Vue.axios.get('videos').then(result => {
         commit('SAVE_VIDEOS', result.data);
@@ -40,13 +55,30 @@ export default new Vuex.Store({
         throw new Error(`API ${error}`);
       });
     },
-    getComments({commit}) {
-      Vue.axios.get('comments').then(result => {
+    getVideo({commit}, id) {
+      Vue.axios.get(`videos/${id}`).then(result => {
+        commit('SAVE_VIDEO', result.data);
+      }).catch(error => {
+        throw new Error(`API ${error}`);
+      });
+    },
+    // getComments({commit}) {
+    //   Vue.axios.get('comments').then(result => {
+    //     commit('SAVE_COMMENTS', result.data);
+    //   }).catch(error => {
+    //     throw new Error(`API ${error}`);
+    //   });
+    // },
+    getVideoComments({commit}, id) {
+      Vue.axios.get(`comments/${id}`).then(result => {
         commit('SAVE_COMMENTS', result.data);
       }).catch(error => {
         throw new Error(`API ${error}`);
       });
     }
+  },
+  getters: {
+    user: state => state.user
   },
   modules: {
   }
