@@ -69,13 +69,6 @@ export default new Vuex.Store({
           throw new Error(`API ${error}`);
       });
     },
-    // getComments({commit}) {
-    //   Vue.axios.get('comments').then(result => {
-    //     commit('SAVE_COMMENTS', result.data);
-    //   }).catch(error => {
-    //     throw new Error(`API ${error}`);
-    //   });
-    // },
     getVideoComments({commit}, id) {
       Vue.axios.get(`comments/${id}`).then(result => {
         commit('SAVE_COMMENTS', result.data);

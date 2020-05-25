@@ -48,7 +48,6 @@
                     comment_date: moment()
                 };
                 Vue.axios.post('comments', comment).then(result => {
-                    console.log(result)
                     this.$store.dispatch('getVideoComments', this.$route.params.id);
                 }).catch(error => {
                     throw new Error(`API ${error}`);

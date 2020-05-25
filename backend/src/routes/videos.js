@@ -16,7 +16,10 @@ const attributes = [
 router.get('/', async (req, res) => {
     try {
         const videos = await req.context.models.Video.findAll({
-            attributes
+            attributes,
+            order: [
+                ['id', 'ASC'],
+            ],
         });
         return res.send(videos); 
     } catch (err) {
@@ -38,18 +41,6 @@ router.get('/:id', async (req, res) => {
     }
 });
    
-// router.post('/', async (req, res) => {
-//     const video = await req.context.models.Video.create({
-//         username: req.body.username,
-//         password: req.body.password,
-//         email: req.body.email,
-//         created_on: moment().format(),
-//         last_login: moment().format()
-//     });
-     
-//     return res.send(user);
-// });
-   
 router.put('/:id/:field', async (req, res) => {
     try {
         const video = await req.context.models.Video.increment(req.params.field, {
@@ -63,23 +54,6 @@ router.put('/:id/:field', async (req, res) => {
     }
     
 });
-
-// router.put('/:id/:field/:value', async (req, res) => {
-//     console.log(req.params.field, req.params.value)
-//     try {
-//         const video = await req.context.models.Video.update({
-//                 [req.params.field]: req.params.value
-//             }, {
-//             where: {
-//                 id: req.params.id
-//             }
-//         });
-//         res.send(video);
-//     } catch(err) {
-//         console.log(err)
-//     }
-    
-// });
    
 router.delete('/:id', async (req, res) => {
     try {

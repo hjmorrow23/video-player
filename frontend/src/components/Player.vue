@@ -51,12 +51,8 @@
                 Vue.axios.put(`videos/${this.$route.params.id}/${field}`).then(result => {
                     this.currentVideo[field] = result.data[0][0][0][field];
                 }).catch(error => {
-                    console.log(error)
                     throw new Error(`API ${error}`);
                 });
-            },
-            testEvent() {
-                console.log('played')
             }
         }
     }

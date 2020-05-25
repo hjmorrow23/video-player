@@ -47,10 +47,6 @@ router.post('/', async (req, res) => {
     return res.send(user);
 });
    
-// router.put('/:id', (req, res) => {
-//     return res.send('Received a PUT HTTP method');
-// });
-   
 router.delete('/:userId', async (req, res) => {
     try {
         const result = await req.context.models.User.destroy({
