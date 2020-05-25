@@ -30,11 +30,7 @@
             }
         },
         mounted() {
-            Vue.axios.get(`users/${this.userComment.user_id}`).then(result => {
-                this.user = result.data;
-            }).catch(error => {
-                throw new Error(`API ${error}`);
-            });
+            this.getUser();
         },
         methods: {
             calculateCommentDateDiff() {
@@ -59,6 +55,13 @@
                     diff,
                     timeFrame
                 }
+            },
+            getUser() {
+                Vue.axios.get(`users/${this.userComment.user_id}`).then(result => {
+                    this.user = result.data;
+                }).catch(error => {
+                    throw new Error(`API ${error}`);
+                });
             }
         }
     }
@@ -69,6 +72,10 @@
         display: flex;
         align-content: space-between;
         margin-bottom: 3.125rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         &-user-profile-image {
             width: 6.25rem;

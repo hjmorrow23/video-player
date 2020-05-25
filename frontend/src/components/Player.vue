@@ -48,7 +48,6 @@
         },
         methods: {
             incrementVideoField(id, field) {
-                console.log(field)
                 Vue.axios.put(`videos/${this.$route.params.id}/${field}`).then(result => {
                     this.currentVideo[field] = result.data[0][0][0][field];
                 }).catch(error => {
