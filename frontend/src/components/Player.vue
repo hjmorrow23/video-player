@@ -1,10 +1,10 @@
 <template>
     <section class="video-section" v-if="currentVideo">
-        <h2 class="video-title">24G Super Awesome Video</h2>
+        <h2 class="video-title">{{currentVideo.title}}</h2>
         <div class="video-flex-container">
             <div class="video-layout-container">
                 <div class="video-container">
-                    <video class="video" v-if="currentVideo" @ended="incrementVideoField(id, 'views')" :src="currentVideo.video_url" :poster="currentVideo.thumb_url" width="100%" controls></video>
+                    <video class="video" v-if="currentVideo" @play="incrementVideoField(id, 'views')" :src="currentVideo.video_url" :poster="currentVideo.thumb_url" width="100%" controls></video>
                     <p v-else>Loading...</p>
                 </div>
                 <div class="video-data-row">

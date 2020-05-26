@@ -45,8 +45,8 @@
             }
 
             .logo {
-                width: 120px;
-                margin-right: 35px;
+                width: 6.25rem;
+                margin-right: 2.1875rem;
 
                 @media(max-width: $mobile) {
                     display: block;

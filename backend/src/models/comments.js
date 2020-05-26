@@ -21,6 +21,13 @@ const comment = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      comment_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
     });
    
     return Comment;

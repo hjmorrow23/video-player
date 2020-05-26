@@ -73,7 +73,7 @@
         }
 
         .comment-input {
-            width: calc(100% - 3.75rem);
+            width: 100%;
             display: block;
             height: 3.125rem;
             padding: 1.25rem 1.875rem;
