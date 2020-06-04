@@ -13,6 +13,7 @@ const attributes = [
     'thumb_url'
 ];
 
+//Get all videos
 router.get('/', async (req, res) => {
     try {
         const videos = await req.context.models.Video.findAll({
@@ -27,6 +28,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+//Get video by id
 router.get('/:id', async (req, res) => {
     try {
         const video = await req.context.models.Video.findByPk(
@@ -40,7 +42,8 @@ router.get('/:id', async (req, res) => {
         console.log(err);
     }
 });
-   
+
+//Increment likes, dislikes and views
 router.put('/:id/:field', async (req, res) => {
     try {
         const video = await req.context.models.Video.increment(req.params.field, {
@@ -54,7 +57,8 @@ router.put('/:id/:field', async (req, res) => {
     }
     
 });
-   
+ 
+//Delete video by id
 router.delete('/:id', async (req, res) => {
     try {
         const result = await req.context.models.Video.destroy({

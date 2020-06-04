@@ -10,6 +10,7 @@ const attributes = [
     'comment_date'
 ];
 
+//Get all comments
 router.get('/', async (req, res) => {
     try {
         const comments = await req.context.models.Comment.findAll({
@@ -21,6 +22,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+//Get comments for a single video by video id
 router.get('/:videoId', async (req, res) => {
     try {
         const id = req.params.videoId
@@ -41,6 +43,7 @@ router.get('/:videoId', async (req, res) => {
     }
 });
    
+//Post comment to video
 router.post('/', async (req, res) => {
     const video = await req.context.models.Comment.create({
         video_id: req.body.video_id,
@@ -54,6 +57,7 @@ router.post('/', async (req, res) => {
     return res.send(video);
 });
    
+//Delete comment
 router.delete('/:id', async (req, res) => {
     try {
         const result = await req.context.models.Comment.destroy({

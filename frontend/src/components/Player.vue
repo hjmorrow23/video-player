@@ -4,7 +4,14 @@
         <div class="video-flex-container">
             <div class="video-layout-container">
                 <div class="video-container">
-                    <video class="video" v-if="currentVideo" @play="incrementVideoField(id, 'views')" :src="currentVideo.video_url" :poster="currentVideo.thumb_url" width="100%" controls></video>
+                    <video class="video" 
+                        v-if="currentVideo" 
+                        @play="incrementVideoField(id, 'views')" 
+                        :src="currentVideo.video_url" 
+                        :poster="currentVideo.thumb_url" 
+                        width="100%" 
+                        controls>
+                    </video>
                     <p v-else>Loading...</p>
                 </div>
                 <div class="video-data-row">
